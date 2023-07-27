@@ -1,0 +1,245 @@
+/*one page layout with animaton when scrolling, main color yellow and black, animation mainly on text, no images or videos. keep it simple. */
+
+:root {
+  --main: #ffeb3b;
+  --main-dark: #8a8324;
+  --secondary: #000000;
+  --secondary-dark: #333333;
+  --text-main: white;
+  --text-secondary: black;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+  background-color: var(--main);
+}
+
+.header {
+  background-color: var(--main);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px;
+  
+  z-index: 999;
+}
+
+.opening-scene {
+  height: 100vh;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centered-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.line-container {
+  margin: 5px;
+}
+
+.centered-text p {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--secondary);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.line-container:nth-child(2) {
+  margin-right: 50px;
+}
+
+.line-container:nth-child(3) {
+  margin-left: 150px;
+}
+
+.centered-text p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--secondary);
+  line-height: 1.2;
+  margin: 50;
+  text-shadow: 2px 2px 4px var(--main-dark);
+}
+
+.logo {
+  text-align: center;
+  border: 2px solid black;
+}
+
+.logo, a {
+  
+  color: #000000;
+  text-decoration: none;
+  cursor: default;
+}
+.logo, p {
+  margin: 10px;
+}
+
+.hamburger-menu {
+  width: 30px;
+  height: 30px;
+  margin-top: 45px;
+  margin-right: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hamburger-menu .line {
+  width: 100%;
+  height: 3px;
+  background-color: #333;
+  border-radius: 1px;
+  transition: transform 0.2s;
+}
+
+.hamburger-menu.shake .line {
+  animation: shake 0.5s;
+}
+
+
+
+.hamburger-menu.active .line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 14px); /* Adjust the 'translate' values to move the line down */
+}
+
+.hamburger-menu.active .line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active .line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -14px); /* Adjust the 'translate' values to move the line up */
+}
+
+
+/* Menu Overlay Styles */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  visibility: hidden;
+  opacity: 0;
+  z-index: 998;
+  transition: visibility 0s, opacity 0.3s;
+}
+
+.menu-overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  margin: 10px 0;
+}
+
+.menu a {
+  font-size: 1.5rem;
+  color: white;
+  text-decoration: none;
+}
+
+.menu a:hover {
+  color: var(--main-dark);
+}
+
+.moving-picture {
+  position: absolute;
+  right: -300px; /* Start the picture outside the right side of the viewport */
+  top: 75%; /* Adjust as needed */
+  width: 200px; /* Adjust the picture size */
+  height: 150px; /* Adjust the picture size */
+  background-image: url('/media/karoliinaFrontPage.png'); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+  background-size: cover;
+  background-position: center;
+  animation: moveLeft 5s linear; /* Adjust the animation duration as needed */
+}
+
+@keyframes moveLeft {
+  0% {
+    right: -100px; /* Starting position outside the right side of the viewport */
+  }
+  100% {
+    right: calc(100% - 100px); /* Final position at the center of the viewport */
+    display: none; /* Hide the picture after the animation is complete */
+  }
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translateX(-2px);
+  }
+  20%, 80% {
+    transform: translateX(2px);
+  }
+  30%, 50%, 70% {
+    transform: translateX(-4px);
+  }
+  40%, 60% {
+    transform: translateX(4px);
+  }
+}
+
+/* New styles for the packages section */
+.packages {
+  display: grid; /* Use CSS Grid for the grid layout */
+  grid-template-columns: repeat(2, 1fr); /* Create a 3-column grid with equal widths */
+  grid-gap: 10px; /* Add spacing between columns */
+  justify-content: center;
+  align-items: stretch; /* Make the columns stretch to fill the container's height */
+  min-height: 75vh; /* Set the container to at least the full viewport height */
+  padding: 50px 0; /* Adjust the padding as needed for spacing */
+  opacity: 0;
+  transform: translateX(100%); /* Translate the columns to the right side */
+  transition: opacity 0.8s ease, transform 1s ease;
+}
+.packages.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.column {
+  /* Remove flex-related properties, as we no longer need them */
+  color: var(--text-main);
+  border-radius: 30px;
+  margin: 10px;
+  padding: 20px;
+  background-color:var(--secondary-dark); /* Set the background color of the columns */
+  box-shadow: 8px 8px 8px var(--main-dark); /* Adjust the shadow values as needed */
+}
+
+.column h2 {
+  margin-bottom: 10px;
+}
